@@ -1,2 +1,7 @@
 /training_datasets
-/docs
+.venv
+*/*.pyc
+*/**/*.pyc
+*/**/**/*.pyc
+*/**/**/**/*.pyc
+*/**/**/**/**/*.pyc
