@@ -1,0 +1,358 @@
+{
+  "description": "Presets de treinamento baseados no tamanho do dataset para modelos pix2pix de colorização",
+  "dataset_categories": {
+    "muito_pequeno": {
+      "min_images": 10,
+      "max_images": 30,
+      "description": "Dataset muito pequeno - requer forte regularização e data augmentation",
+      "presets": {
+        "conservador": {
+          "name": "Dataset pequeno conservador",
+          "description": "Treinamento lento e seguro para evitar overfitting",
+          "flags": {
+            "n_epochs": 100,
+            "n_epochs_decay": 100,
+            "batch_size": 1,
+            "lr": 0.0001,
+            "beta1": 0.5,
+            "lr_policy": "linear",
+            "netG": "unet_256",
+            "netD": "basic",
+            "ngf": 64,
+            "ndf": 64,
+            "n_layers_D": 3,
+            "norm": "instance",
+            "load_size": 286,
+            "crop_size": 256,
+            "preprocess": "resize_and_crop",
+            "no_flip": false,
+            "gan_mode": "lsgan",
+            "save_epoch_freq": 20
+          }
+        },
+        "rapido": {
+          "name": "Dataset pequeno rápido",
+          "description": "Treinamento mais rápido mas com risco de overfitting",
+          "flags": {
+            "n_epochs": 50,
+            "n_epochs_decay": 50,
+            "batch_size": 1,
+            "lr": 0.0002,
+            "beta1": 0.5,
+            "lr_policy": "linear",
+            "netG": "unet_256",
+            "netD": "basic",
+            "ngf": 64,
+            "ndf": 64,
+            "n_layers_D": 3,
+            "norm": "instance",
+            "load_size": 286,
+            "crop_size": 256,
+            "preprocess": "resize_and_crop",
+            "no_flip": false,
+            "gan_mode": "lsgan",
+            "save_epoch_freq": 10
+          }
+        }
+      }
+    },
+    "pequeno": {
+      "min_images": 31,
+      "max_images": 100,
+      "description": "Dataset pequeno - configurações balanceadas",
+      "presets": {
+        "recomendado": {
+          "name": "Padrão para datasets pequenos",
+          "description": "Configuração balanceada entre velocidade e qualidade",
+          "flags": {
+            "n_epochs": 100,
+            "n_epochs_decay": 50,
+            "batch_size": 1,
+            "lr": 0.0002,
+            "beta1": 0.5,
+            "lr_policy": "linear",
+            "netG": "unet_256",
+            "netD": "basic",
+            "ngf": 64,
+            "ndf": 64,
+            "n_layers_D": 3,
+            "norm": "batch",
+            "load_size": 286,
+            "crop_size": 256,
+            "preprocess": "resize_and_crop",
+            "no_flip": false,
+            "gan_mode": "lsgan",
+            "save_epoch_freq": 20
+          }
+        },
+        "qualidade": {
+          "name": "Alta qualidade (mais lento)",
+          "description": "Mais épocas para melhor convergência",
+          "flags": {
+            "n_epochs": 150,
+            "n_epochs_decay": 100,
+            "batch_size": 1,
+            "lr": 0.0001,
+            "beta1": 0.5,
+            "lr_policy": "linear",
+            "netG": "unet_256",
+            "netD": "n_layers",
+            "ngf": 64,
+            "ndf": 64,
+            "n_layers_D": 4,
+            "norm": "batch",
+            "load_size": 286,
+            "crop_size": 256,
+            "preprocess": "resize_and_crop",
+            "no_flip": false,
+            "gan_mode": "lsgan",
+            "save_epoch_freq": 25
+          }
+        },
+        "rapido": {
+          "name": "Rápido (menor qualidade)",
+          "description": "Para testes e iterações rápidas",
+          "flags": {
+            "n_epochs": 50,
+            "n_epochs_decay": 25,
+            "batch_size": 2,
+            "lr": 0.0002,
+            "beta1": 0.5,
+            "lr_policy": "linear",
+            "netG": "unet_256",
+            "netD": "basic",
+            "ngf": 64,
+            "ndf": 64,
+            "n_layers_D": 3,
+            "norm": "batch",
+            "load_size": 286,
+            "crop_size": 256,
+            "preprocess": "resize_and_crop",
+            "no_flip": false,
+            "gan_mode": "lsgan",
+            "save_epoch_freq": 10
+          }
+        }
+      }
+    },
+    "medio": {
+      "min_images": 101,
+      "max_images": 500,
+      "description": "Dataset médio - pode usar batch maior e menos épocas",
+      "presets": {
+        "recomendado": {
+          "name": "Padrão para datasets médios",
+          "description": "Configuração otimizada para datasets médios",
+          "flags": {
+            "n_epochs": 100,
+            "n_epochs_decay": 50,
+            "batch_size": 4,
+            "lr": 0.0002,
+            "beta1": 0.5,
+            "lr_policy": "linear",
+            "netG": "unet_256",
+            "netD": "basic",
+            "ngf": 64,
+            "ndf": 64,
+            "n_layers_D": 3,
+            "norm": "batch",
+            "load_size": 286,
+            "crop_size": 256,
+            "preprocess": "resize_and_crop",
+            "no_flip": false,
+            "gan_mode": "lsgan",
+            "save_epoch_freq": 20
+          }
+        },
+        "resnet": {
+          "name": "ResNet Generator (mais robusto)",
+          "description": "Usa ResNet como gerador - mais robusto para variações",
+          "flags": {
+            "n_epochs": 100,
+            "n_epochs_decay": 50,
+            "batch_size": 2,
+            "lr": 0.0002,
+            "beta1": 0.5,
+            "lr_policy": "linear",
+            "netG": "resnet_9blocks",
+            "netD": "n_layers",
+            "ngf": 64,
+            "ndf": 64,
+            "n_layers_D": 3,
+            "norm": "instance",
+            "load_size": 286,
+            "crop_size": 256,
+            "preprocess": "resize_and_crop",
+            "no_flip": false,
+            "gan_mode": "lsgan",
+            "save_epoch_freq": 20
+          }
+        },
+        "rapido": {
+          "name": "Rápido",
+          "description": "Treinamento rápido com batch maior",
+          "flags": {
+            "n_epochs": 50,
+            "n_epochs_decay": 25,
+            "batch_size": 8,
+            "lr": 0.0002,
+            "beta1": 0.5,
+            "lr_policy": "linear",
+            "netG": "unet_256",
+            "netD": "basic",
+            "ngf": 64,
+            "ndf": 64,
+            "n_layers_D": 3,
+            "norm": "batch",
+            "load_size": 286,
+            "crop_size": 256,
+            "preprocess": "resize_and_crop",
+            "no_flip": false,
+            "gan_mode": "lsgan",
+            "save_epoch_freq": 10
+          }
+        }
+      }
+    },
+    "grande": {
+      "min_images": 501,
+      "max_images": 2000,
+      "description": "Dataset grande - pode reduzir épocas e usar batch maior",
+      "presets": {
+        "recomendado": {
+          "name": "Padrão para datasets grandes",
+          "description": "Configuração eficiente para grandes volumes",
+          "flags": {
+            "n_epochs": 50,
+            "n_epochs_decay": 25,
+            "batch_size": 8,
+            "lr": 0.0002,
+            "beta1": 0.5,
+            "lr_policy": "linear",
+            "netG": "unet_256",
+            "netD": "basic",
+            "ngf": 64,
+            "ndf": 64,
+            "n_layers_D": 3,
+            "norm": "batch",
+            "load_size": 286,
+            "crop_size": 256,
+            "preprocess": "resize_and_crop",
+            "no_flip": false,
+            "gan_mode": "lsgan",
+            "save_epoch_freq": 10
+          }
+        },
+        "alta_qualidade": {
+          "name": "Alta qualidade",
+          "description": "Mais épocas para resultados melhores",
+          "flags": {
+            "n_epochs": 100,
+            "n_epochs_decay": 50,
+            "batch_size": 4,
+            "lr": 0.0001,
+            "beta1": 0.5,
+            "lr_policy": "linear",
+            "netG": "resnet_9blocks",
+            "netD": "n_layers",
+            "ngf": 64,
+            "ndf": 64,
+            "n_layers_D": 4,
+            "norm": "instance",
+            "load_size": 286,
+            "crop_size": 256,
+            "preprocess": "resize_and_crop",
+            "no_flip": false,
+            "gan_mode": "lsgan",
+            "save_epoch_freq": 20
+          }
+        },
+        "muito_rapido": {
+          "name": "Muito rápido",
+          "description": "Para prototipagem e testes",
+          "flags": {
+            "n_epochs": 25,
+            "n_epochs_decay": 15,
+            "batch_size": 16,
+            "lr": 0.0002,
+            "beta1": 0.5,
+            "lr_policy": "linear",
+            "netG": "unet_256",
+            "netD": "basic",
+            "ngf": 64,
+            "ndf": 64,
+            "n_layers_D": 3,
+            "norm": "batch",
+            "load_size": 286,
+            "crop_size": 256,
+            "preprocess": "resize_and_crop",
+            "no_flip": false,
+            "gan_mode": "lsgan",
+            "save_epoch_freq": 5
+          }
+        }
+      }
+    },
+    "muito_grande": {
+      "min_images": 2001,
+      "max_images": 999999,
+      "description": "Dataset muito grande - prioriza eficiência",
+      "presets": {
+        "recomendado": {
+          "name": "Eficiente para datasets muito grandes",
+          "description": "Prioriza velocidade mantendo qualidade",
+          "flags": {
+            "n_epochs": 30,
+            "n_epochs_decay": 20,
+            "batch_size": 16,
+            "lr": 0.0002,
+            "beta1": 0.5,
+            "lr_policy": "linear",
+            "netG": "unet_256",
+            "netD": "basic",
+            "ngf": 64,
+            "ndf": 64,
+            "n_layers_D": 3,
+            "norm": "batch",
+            "load_size": 286,
+            "crop_size": 256,
+            "preprocess": "resize_and_crop",
+            "no_flip": false,
+            "gan_mode": "lsgan",
+            "save_epoch_freq": 5
+          }
+        },
+        "qualidade_maxima": {
+          "name": "Qualidade máxima",
+          "description": "Mais épocas e arquitetura mais complexa",
+          "flags": {
+            "n_epochs": 50,
+            "n_epochs_decay": 50,
+            "batch_size": 8,
+            "lr": 0.0001,
+            "beta1": 0.5,
+            "lr_policy": "cosine",
+            "netG": "resnet_9blocks",
+            "netD": "n_layers",
+            "ngf": 64,
+            "ndf": 64,
+            "n_layers_D": 4,
+            "norm": "instance",
+            "load_size": 286,
+            "crop_size": 256,
+            "preprocess": "resize_and_crop",
+            "no_flip": false,
+            "gan_mode": "lsgan",
+            "save_epoch_freq": 10
+          }
+        }
+      }
+    }
+  },
+  "tips": {
+    "overfitting": "Se o modelo está overfitting (funciona só nas imagens de treino), reduza n_epochs, aumente data augmentation, ou use norm='instance'",
+    "underfitting": "Se o modelo não está convergindo, aumente n_epochs, reduza lr, ou use mais imagens",
+    "memoria": "Se faltar memória GPU, reduza batch_size ou use netG='unet_128'",
+    "qualidade": "Para melhor qualidade, use mais épocas e netG='resnet_9blocks'"
+  }
+}

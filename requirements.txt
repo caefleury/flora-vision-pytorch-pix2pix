@@ -1,0 +1,12 @@
+torch
+numpy
+scikit-image
+opencv-python
+Pillow
+dominate
+wandb
+torchvision
+matplotlib
+streamlit
+black
+flake8
